@@ -1,7 +1,7 @@
 import React from 'react';
 import Posts from './Posts';
 import Errors from '../Reusable/Errors';
-import { executeRESTMethod, checkUserLoggedIn } from '../../lib/utils';
+import { executeRESTMethod, showContent } from '../../lib/utils';
 
 function DashboardPageContent() {
 	const [posts, setPosts] = React.useState(null);
@@ -23,21 +23,7 @@ function DashboardPageContent() {
 	}, []);
 
 	function showPosts() {
-		if (errors) {
-			return <Errors errors={errors} />;
-		} else if (!isLoaded) {
-			return (
-				<div className='text-center'>
-					<p className='font-lato'>Loading Posts...</p>
-				</div>
-			);
-		} else if (posts && posts.length === 0) {
-			return (
-				<div className='text-center'>
-					<p className='font-lato'>No posts available</p>
-				</div>
-			);
-		}
+		showContent(errors, isLoaded, 'posts', posts);
 
 		return <Posts posts={posts} />;
 	}

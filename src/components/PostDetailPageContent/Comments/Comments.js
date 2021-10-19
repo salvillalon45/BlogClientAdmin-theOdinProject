@@ -28,7 +28,7 @@ function Comments(props) {
 
 			{commentItems}
 
-			<CommentForm handleCommmentsChange={handleCommmentsChange} />
+			{/* <CommentForm handleCommmentsChange={handleCommmentsChange} /> */}
 		</div>
 	);
 }

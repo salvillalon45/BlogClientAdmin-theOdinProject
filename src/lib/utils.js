@@ -1,33 +1,48 @@
 import React from 'react';
 import jwt_decode from 'jwt-decode';
-import Errors from '../Reusable/Errors';
+import Errors from '../components/Reusable/Errors';
+import IsLoaded from '../components/Reusable/IsLoaded';
+import NoContentAvailable from '../components/Reusable/NoContentAvailable';
 
-function showContent(errors, isLoaded, dataToShow) {
+function showContent(errors, isLoaded, message, dataToShow) {
+	console.group('Inside showContent');
 	if (errors) {
+		console.log('Going to show errors');
 		return <Errors errors={errors} />;
 	} else if (!isLoaded) {
-		return (
-			<div className='text-center'>
-				<p className='font-lato'>Loading Posts...</p>
-			</div>
-		);
-	} else if (posts && posts.length === 0) {
-		return (
-			<div className='text-center'>
-				<p className='font-lato'>No posts available</p>
-			</div>
-		);
+		console.log('Going to show is loaded');
+		return <IsLoaded message={message} />;
+	} else if (dataToShow && dataToShow.length === 0) {
+		console.log('GOing to show no content avialab');
+		return <NoContentAvailable message={message} />;
+	} else {
+		return null;
 	}
+	console.groupEnd();
 }
 
-async function executeRESTMethod(method, bodyData, path) {
+async function executeRESTMethod(
+	method,
+	bodyData,
+	path,
+	authorization,
+	errorMessage
+) {
 	const response = await fetch(`${process.env.GATSBY_BLOG_API}/${path}`, {
 		method,
 		headers: {
+			Authorization: authorization,
 			'Content-Type': 'application/json'
 		},
 		body: bodyData ? JSON.stringify(bodyData) : null
 	});
+
+	const { status, statusText } = response;
+	if (status === 401 && statusText === 'Unauthorized') {
+		throw {
+			errors: [errorMessage]
+		};
+	}
 
 	const jsonData = await response.json();
 
@@ -67,8 +82,8 @@ function getPostById(posts, postid) {
 	return posts.find((post) => post._id === postid);
 }
 
-function getPostId() {
-	return window.location.pathname.split('/')[2];
+function getPostId(props) {
+	return props?.pageResources?.json?.pageContext?.slug ?? '';
 }
 
 function checkAuthPage(authFlag) {
@@ -91,5 +106,6 @@ export {
 	formatDate,
 	getPostId,
 	checkAuthPage,
-	executeRESTMethod
+	executeRESTMethod,
+	showContent
 };

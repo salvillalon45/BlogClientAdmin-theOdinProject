@@ -3,24 +3,18 @@ import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import PostDetailPageContent from '../components/PostDetailPageContent';
-import { getPostById } from '../lib/utils';
+import { getPostId } from '../lib/utils';
 
 function PostDetailTemplate(props) {
-	const id = 'blogPageContainer';
-
-	const { posts } = props.data.blogs;
-	const { pathname } = props.location;
-	const postid = pathname.split('/')[2];
-	const post = getPostById(posts, postid);
-
-	// TODO Add a use effect to retrieve post by detail. We can use the post detail end point we created
+	const id = 'postDetailContainer';
+	const postid = getPostId(props);
 
 	return (
 		<Layout id={id}>
 			<section>
-				<Seo title={`Blog: ${post.title}`} />
+				<Seo title={`Post`} />
 
-				<PostDetailPageContent post={post} />
+				<PostDetailPageContent postid={postid} />
 			</section>
 		</Layout>
 	);
