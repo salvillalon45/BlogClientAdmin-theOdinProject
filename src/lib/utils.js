@@ -83,7 +83,7 @@ function getPostById(posts, postid) {
 }
 
 function getPostId(props) {
-	return props?.pageResources?.json?.pageContext?.slug ?? '';
+	return props?.pageContext?.slug ?? '';
 }
 
 function checkAuthPage(authFlag) {

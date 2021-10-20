@@ -41,6 +41,14 @@ exports.createPages = async ({ actions }) => {
 			context: { slug: item._id }
 		});
 	});
+
+	postsData.posts.forEach((item) => {
+		actions.createPage({
+			path: `/dashboard/blog/${item._id}/action`,
+			component: path.resolve('src/templates/action_post.js'),
+			context: { slug: item._id, postData: item }
+		});
+	});
 };
 
 // This retrieves the posts data at build time! Since the blogs will not be changing a lot
