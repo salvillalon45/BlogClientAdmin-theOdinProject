@@ -39,14 +39,14 @@ function IndexPageContent() {
 
 	function handleChange(event) {
 		const { name, value } = event.target;
-		console.group('Inside Handle Change');
+		// console.group('Inside Handle Change');
 		if (name === 'username') {
-			console.log('Setting username here');
-			console.log({ value });
+			// console.log('Setting username here');
+			// console.log({ value });
 			setUsername(value);
 		} else {
-			console.log('Setting password here');
-			console.log({ value });
+			// console.log('Setting password here');
+			// console.log({ value });
 			setPassword(value);
 		}
 

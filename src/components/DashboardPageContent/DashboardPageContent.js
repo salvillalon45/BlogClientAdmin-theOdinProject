@@ -1,6 +1,6 @@
 import React from 'react';
 import Posts from './Posts';
-import Errors from '../Reusable/Errors';
+import Button from '../Reusable/Button';
 import { executeRESTMethod, showContent } from '../../lib/utils';
 
 function DashboardPageContent() {
@@ -23,13 +23,15 @@ function DashboardPageContent() {
 	}, []);
 
 	function showPosts() {
-		showContent(errors, isLoaded, 'posts', posts);
+		showContent(errors, isLoaded, 'Loading posts...', posts, 'Loading');
 
 		return <Posts posts={posts} />;
 	}
 
 	return (
 		<div className='dashboardPageContentContaienr'>
+			<Button buttonMessage={'Create a New Post'} path={`action`} />
+
 			{isLoaded && showPosts()}
 		</div>
 	);

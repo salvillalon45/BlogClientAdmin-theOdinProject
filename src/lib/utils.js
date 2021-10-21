@@ -4,21 +4,38 @@ import Errors from '../components/Reusable/Errors';
 import IsLoaded from '../components/Reusable/IsLoaded';
 import NoContentAvailable from '../components/Reusable/NoContentAvailable';
 
+function usePageUserLoggedInCheck() {
+	console.group('inside PageUserLoggedInCheck');
+	const [errors, setErrors] = React.useState(null);
+
+	React.useEffect(() => {
+		const userCheck = checkUserLoggedIn();
+
+		if (!userCheck) {
+			console.log('HTere are errors');
+			setErrors(['You need to log in to proceed!']);
+			// errors = ['You need to log in to proceed!'];
+		}
+	}, []);
+	console.groupEnd();
+	return errors;
+}
+
 function showContent(errors, isLoaded, message, dataToShow) {
-	console.group('Inside showContent');
+	// console.group('Inside showContent');
 	if (errors) {
-		console.log('Going to show errors');
+		// console.log('Going to show errors');
 		return <Errors errors={errors} />;
 	} else if (!isLoaded) {
-		console.log('Going to show is loaded');
-		return <IsLoaded message={message} />;
+		// console.log('Going to show is loaded');
+		return <IsLoaded message={message} action={'Loading'} />;
 	} else if (dataToShow && dataToShow.length === 0) {
-		console.log('GOing to show no content avialab');
+		// console.log('GOing to show no content avialab');
 		return <NoContentAvailable message={message} />;
 	} else {
 		return null;
 	}
-	console.groupEnd();
+	// console.groupEnd();
 }
 
 async function executeRESTMethod(
@@ -86,12 +103,8 @@ function getPostId(props) {
 	return props?.pageContext?.slug ?? '';
 }
 
-function checkAuthPage(authFlag) {
-	if (authFlag === undefined || authFlag === null || authFlag.length === 0) {
-		return true;
-	}
-
-	return !['sign-up', 'log-in'].includes(authFlag);
+function checkActionPage(props) {
+	return props.pageContext.actionToTake ?? '';
 }
 
 function formatDate(timestamp) {
@@ -105,7 +118,8 @@ export {
 	getPostById,
 	formatDate,
 	getPostId,
-	checkAuthPage,
+	checkActionPage,
 	executeRESTMethod,
-	showContent
+	showContent,
+	usePageUserLoggedInCheck
 };

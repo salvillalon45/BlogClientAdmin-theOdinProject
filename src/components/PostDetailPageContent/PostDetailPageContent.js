@@ -10,7 +10,6 @@ function PostDetailPageContent({ postid }) {
 	const [errors, setErrors] = React.useState(null);
 	const [isPostLoaded, setIsPostLoaded] = React.useState(false);
 	const [isCommentLoaded, setIsCommentLoaded] = React.useState(false);
-	const [updateModal, setUpdateModal] = React.useState(false);
 
 	// Client-side Runtime Data Fetching
 	React.useEffect(async () => {
@@ -77,20 +76,10 @@ function PostDetailPageContent({ postid }) {
 		return <Comments comments={comments} />;
 	}
 
-	function handleUpdateModal() {
-		setUpdateModal(!updateModal);
-	}
-
 	return (
 		<div className='postDetailPageContentContainer'>
 			<Button buttonMessage={'Go Back'} />
-			<Button
-				buttonMessage={'Update Post'}
-				path={`action`}
-				handleUpdateModal={handleUpdateModal}
-			/>
-
-			{updateModal && <textarea id='mytextarea'>Hello, World!</textarea>}
+			<Button buttonMessage={'Update a Post'} path={`action`} />
 
 			{showPost()}
 

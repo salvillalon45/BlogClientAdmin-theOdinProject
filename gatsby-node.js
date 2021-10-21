@@ -46,7 +46,15 @@ exports.createPages = async ({ actions }) => {
 		actions.createPage({
 			path: `/dashboard/blog/${item._id}/action`,
 			component: path.resolve('src/templates/action_post.js'),
-			context: { slug: item._id, postData: item }
+			context: { slug: item._id, postData: item, actionToTake: 'update' }
+		});
+	});
+
+	postsData.posts.forEach((item) => {
+		actions.createPage({
+			path: `/dashboard/action`,
+			component: path.resolve('src/templates/action_post.js'),
+			context: { slug: item._id, postData: item, actionToTake: 'create' }
 		});
 	});
 };
