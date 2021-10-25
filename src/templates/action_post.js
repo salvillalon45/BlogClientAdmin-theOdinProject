@@ -1,40 +1,38 @@
 import * as React from 'react';
-import { useLocation } from '@reach/router';
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import ActionPostPageContent from '../components/ActionPostPageContent';
-import Errors from '../components/Reusable/Errors';
-import { getPostId, checkActionPage } from '../lib/utils';
+import AuthCheck from '../components/Reusable/AuthCheck';
+import { getPostId, checkActionPage, checkUserLoggedIn } from '../lib/utils';
 
 function ActionPostTemplate(props) {
+	const [errors, setErrors] = React.useState(null);
+	const [isLoaded, setIsLoaded] = React.useState(false);
 	const id = 'actionPostContainer';
-	const postid = getPostId(props);
-	console.log({ postid });
-	console.log(props);
-	const actionToTake = checkActionPage(props);
-	console.log({ actionToTake });
 
-	// {
-	// 	errors ? (
-	// 		<div>
-	// 			<Button path={'/'} buttonMessage={'Log In'} />
-	// 			<Errors errors={errors} />
-	// 		</div>
-	// 	) : (
-	// 		<main>{children}</main>
-	// 	);
-	// }
+	const postid = getPostId(props);
+	const actionToTake = checkActionPage(props);
+	const userCheck = checkUserLoggedIn();
+
+	if (!userCheck && !isLoaded) {
+		setErrors(['You need to log in to proceed!']);
+		setIsLoaded(true);
+	}
 
 	return (
 		<Layout id={id}>
 			<section>
 				<Seo title={`Action Post`} />
 
-				<ActionPostPageContent
-					postid={postid}
-					post={props.pageContext.postData}
-					actionToTake={actionToTake}
-				/>
+				{errors ? (
+					<AuthCheck errors={errors} />
+				) : (
+					<ActionPostPageContent
+						postid={postid}
+						post={props.pageContext.postData}
+						actionToTake={actionToTake}
+					/>
+				)}
 			</section>
 		</Layout>
 	);

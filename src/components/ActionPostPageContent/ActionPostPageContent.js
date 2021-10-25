@@ -4,7 +4,7 @@ import { useLocation } from '@reach/router';
 import ActionForm from './ActionForm';
 import Errors from '../Reusable/Errors';
 import Button from '../Reusable/Button';
-import { executeRESTMethod } from '../../lib/utils';
+import { executeRESTMethod, checkForErrors } from '../../lib/utils';
 import IsLoaded from '../Reusable/IsLoaded';
 
 function ActionPostPageContent({ postid, post, actionToTake }) {
@@ -23,8 +23,6 @@ function ActionPostPageContent({ postid, post, actionToTake }) {
 	}
 
 	async function handleSubmit() {
-		console.group('Inside handleSubmit');
-
 		const { user_ref } = JSON.parse(localStorage.getItem('user')) ?? '';
 		if (!user_ref) {
 			setErrors([
@@ -38,7 +36,6 @@ function ActionPostPageContent({ postid, post, actionToTake }) {
 			content,
 			author: user_ref
 		};
-		console.log({ actionFormData });
 
 		let method = '';
 		let path = '';
@@ -56,16 +53,9 @@ function ActionPostPageContent({ postid, post, actionToTake }) {
 			path,
 			localStorage.getItem('token')
 		);
-		console.log('What is actionData');
-		console.log(actionData);
-		const errors = actionData.errors ?? '';
 
-		if (errors) {
-			console.log('There are errors');
-			setErrors(errors);
-			return;
-		}
-		console.log('GOing to set loaded');
+		checkForErrors(actionData, setErrors);
+
 		setErrors(null);
 		setIsLoaded(true);
 		console.groupEnd();

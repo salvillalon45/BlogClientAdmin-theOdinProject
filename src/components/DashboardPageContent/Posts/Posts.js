@@ -4,12 +4,13 @@ import PostItem from './PostItem';
 import { formatDate } from '../../../lib/utils';
 
 function Posts({ posts }) {
-	const postItems = posts.map((post) => {
+	const postItems = posts.map((post, index) => {
 		const { title, content, timestamp, _id } = post;
 		const { username } = post.author;
 
 		return (
 			<PostItem
+				key={index}
 				slug={_id}
 				title={title}
 				timestamp={formatDate(new Date(timestamp))}

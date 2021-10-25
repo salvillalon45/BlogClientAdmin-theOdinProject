@@ -3,7 +3,11 @@ import { navigate } from 'gatsby-link';
 import IntroHeader from './IntroHeader';
 import AuthForm from './AuthForm';
 import Errors from '../Reusable/Errors';
-import { executeRESTMethod, checkUserLoggedIn } from '../../lib/utils';
+import {
+	executeRESTMethod,
+	checkUserLoggedIn,
+	checkForErrors
+} from '../../lib/utils';
 
 function IndexPageContent() {
 	const [username, setUsername] = React.useState('');
@@ -19,12 +23,8 @@ function IndexPageContent() {
 	async function handleSubmit(usernameTest) {
 		const authData = { username: usernameTest, password };
 		const loginData = await executeRESTMethod('post', authData, 'log-in');
-		const errors = loginData.errors ?? '';
 
-		if (errors) {
-			setErrors(errors);
-			return;
-		}
+		checkForErrors(loginData, setErrors);
 
 		const { user, token } = loginData;
 		const { username, _id: user_ref } = user;
@@ -39,18 +39,12 @@ function IndexPageContent() {
 
 	function handleChange(event) {
 		const { name, value } = event.target;
-		// console.group('Inside Handle Change');
+
 		if (name === 'username') {
-			// console.log('Setting username here');
-			// console.log({ value });
 			setUsername(value);
 		} else {
-			// console.log('Setting password here');
-			// console.log({ value });
 			setPassword(value);
 		}
-
-		console.groupEnd();
 	}
 
 	return (

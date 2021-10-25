@@ -3,6 +3,7 @@ import { navigate } from 'gatsby';
 
 function Button(props) {
 	const { buttonMessage } = props;
+	const color = props.color ?? 'bg-linearBlue';
 
 	function buttonAction() {
 		if (
@@ -10,7 +11,7 @@ function Button(props) {
 			buttonMessage === 'Go Back To Dashboard'
 		) {
 			return navigate('/dashboard');
-		} else if (buttonMessage === 'Update a Post') {
+		} else if (buttonMessage === 'Update Post') {
 			return navigate(props.path + '?update');
 		} else if (buttonMessage === 'Create a New Post') {
 			return navigate(props.path + '?create');
@@ -20,13 +21,17 @@ function Button(props) {
 			return navigate(props.path);
 		} else if (buttonMessage === 'Log In') {
 			return navigate(props.path);
+		} else if (buttonMessage === 'Delete Post') {
+			return props.handlePostDelete();
+		} else if (buttonMessage === 'Delete Comment') {
+			return props.handleCommentDelete();
 		}
 	}
 
 	return (
 		<button
 			type='button'
-			className='font-lora p-2 rounded-lg	text-white bg-linearBlue text-center mt-6 flex m-auto'
+			className={`font-lora p-2 rounded-lg text-white ${color} text-center mt-6 flex m-auto`}
 			onClick={() => buttonAction()}
 		>
 			{buttonMessage}

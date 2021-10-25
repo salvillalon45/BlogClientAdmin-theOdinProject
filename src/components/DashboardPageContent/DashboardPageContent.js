@@ -1,22 +1,21 @@
 import React from 'react';
 import Posts from './Posts';
 import Button from '../Reusable/Button';
-import { executeRESTMethod, showContent } from '../../lib/utils';
+import {
+	executeRESTMethod,
+	showContent,
+	checkForErrors
+} from '../../lib/utils';
 
-function DashboardPageContent() {
+function DashboardPageContent(props) {
 	const [posts, setPosts] = React.useState(null);
 	const [errors, setErrors] = React.useState(null);
 	const [isLoaded, setIsLoaded] = React.useState(false);
 
-	// Client-side Runtime Data Fetching
 	React.useEffect(async () => {
 		const postsData = await executeRESTMethod('get', null, 'posts');
-		const errors = postsData.errors ?? '';
 
-		if (errors) {
-			setErrors(errors);
-			return;
-		}
+		checkForErrors(postsData, setErrors);
 
 		setPosts(postsData.posts);
 		setIsLoaded(true);

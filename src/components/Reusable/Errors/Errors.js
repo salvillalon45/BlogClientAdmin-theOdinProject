@@ -6,8 +6,12 @@ function Errors({ errors }) {
 			<h3 className='font-lora font-bold text-2xl underline'>Oops</h3>
 
 			<div className='my-4'>
-				{errors.map((error) => {
-					return <p className='font-lato text-md'>{error}</p>;
+				{errors.map((error, index) => {
+					return (
+						<p key={index} className='font-lato text-md'>
+							{error}
+						</p>
+					);
 				})}
 			</div>
 		</div>

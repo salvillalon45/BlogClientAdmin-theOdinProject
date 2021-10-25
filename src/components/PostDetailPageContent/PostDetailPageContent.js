@@ -2,7 +2,12 @@ import React from 'react';
 import Comments from './Comments';
 import PostDetail from './PostDetail';
 import Button from '../Reusable/Button';
-import { executeRESTMethod, showContent } from '../../lib/utils';
+import Errors from '../Reusable/Errors';
+import {
+	executeRESTMethod,
+	showContent,
+	checkForErrors
+} from '../../lib/utils';
 
 function PostDetailPageContent({ postid }) {
 	const [post, setPost] = React.useState(null);
@@ -10,23 +15,21 @@ function PostDetailPageContent({ postid }) {
 	const [errors, setErrors] = React.useState(null);
 	const [isPostLoaded, setIsPostLoaded] = React.useState(false);
 	const [isCommentLoaded, setIsCommentLoaded] = React.useState(false);
+	const [isPostDeleted, setIsPostDeleted] = React.useState(false);
 
-	// Client-side Runtime Data Fetching
 	React.useEffect(async () => {
+		console.group('Inside useEffect in PostDetailPageContent for post');
 		const postData = await executeRESTMethod(
 			'get',
 			null,
 			`posts/${postid}`
 		);
-		const errors = postData.errors ?? '';
 
-		if (errors) {
-			setErrors(errors);
-			return;
-		}
+		checkForErrors(postData, setErrors);
 
 		setPost(postData.post);
 		setIsPostLoaded(true);
+		console.groupEnd();
 	}, []);
 
 	React.useEffect(async () => {
@@ -35,21 +38,29 @@ function PostDetailPageContent({ postid }) {
 			null,
 			`posts/${postid}/comments`,
 			localStorage.getItem('token'),
-			'Create an account or log in to your current account to view comments and create comments!'
+			'Log in to view comments and create comments!'
 		);
 
-		const errors = commentsData.errors ?? '';
-
-		if (errors) {
-			setErrors(errors);
-			return;
-		}
+		checkForErrors(commentsData, setErrors);
 
 		const { comments } = commentsData;
-
 		setComments(comments);
 		setIsCommentLoaded(true);
 	}, []);
+
+	async function handlePostDelete() {
+		const postDeleteData = await executeRESTMethod(
+			'delete',
+			null,
+			`posts/${postid}`,
+			localStorage.getItem('token'),
+			'Log in to your account to delete your posts!'
+		);
+
+		checkForErrors(postDeleteData, setErrors);
+
+		setIsPostDeleted(true);
+	}
 
 	function showPost() {
 		const result = showContent(errors, isPostLoaded, 'post', post);
@@ -73,19 +84,51 @@ function PostDetailPageContent({ postid }) {
 			return result;
 		}
 
-		return <Comments comments={comments} />;
+		return <Comments comments={comments} postid={postid} />;
+	}
+
+	function showPostDetailPageContent() {
+		if (errors) {
+			return <Errors errors={errors} />;
+		} else if (isPostDeleted) {
+			return (
+				<div className='text-center my-9'>
+					<h3 className='font-lora font-bold text-2xl underline'>
+						Post Deleted Successfully
+					</h3>
+				</div>
+			);
+		} else {
+			return (
+				<>
+					<div className='flex'>
+						<Button
+							buttonMessage={'Update Post'}
+							path={`action`}
+							color='bg-linearGreen'
+						/>
+						<Button
+							buttonMessage={'Delete Post'}
+							color='bg-linearRed'
+							handlePostDelete={handlePostDelete}
+						/>
+					</div>
+
+					{showPost()}
+
+					<hr className='my-9' />
+
+					{showComments()}
+				</>
+			);
+		}
 	}
 
 	return (
 		<div className='postDetailPageContentContainer'>
 			<Button buttonMessage={'Go Back'} />
-			<Button buttonMessage={'Update a Post'} path={`action`} />
 
-			{showPost()}
-
-			<hr className='my-9' />
-
-			{showComments()}
+			{showPostDetailPageContent()}
 		</div>
 	);
 }

@@ -4,38 +4,34 @@ import Errors from '../components/Reusable/Errors';
 import IsLoaded from '../components/Reusable/IsLoaded';
 import NoContentAvailable from '../components/Reusable/NoContentAvailable';
 
-function usePageUserLoggedInCheck() {
-	console.group('inside PageUserLoggedInCheck');
-	const [errors, setErrors] = React.useState(null);
+function checkForAuthError(isLoaded, setErrors, setIsLoaded) {
+	const userCheck = checkUserLoggedIn();
 
-	React.useEffect(() => {
-		const userCheck = checkUserLoggedIn();
+	if (!userCheck && !isLoaded) {
+		setErrors(['You need to log in to proceed!']);
+		setIsLoaded(true);
+	}
+}
 
-		if (!userCheck) {
-			console.log('HTere are errors');
-			setErrors(['You need to log in to proceed!']);
-			// errors = ['You need to log in to proceed!'];
-		}
-	}, []);
-	console.groupEnd();
-	return errors;
+function checkForErrors(data, setErrors) {
+	const errors = data.errors ?? '';
+
+	if (errors) {
+		setErrors(errors);
+		return;
+	}
 }
 
 function showContent(errors, isLoaded, message, dataToShow) {
-	// console.group('Inside showContent');
 	if (errors) {
-		// console.log('Going to show errors');
 		return <Errors errors={errors} />;
 	} else if (!isLoaded) {
-		// console.log('Going to show is loaded');
 		return <IsLoaded message={message} action={'Loading'} />;
 	} else if (dataToShow && dataToShow.length === 0) {
-		// console.log('GOing to show no content avialab');
 		return <NoContentAvailable message={message} />;
 	} else {
 		return null;
 	}
-	// console.groupEnd();
 }
 
 async function executeRESTMethod(
@@ -53,15 +49,18 @@ async function executeRESTMethod(
 		},
 		body: bodyData ? JSON.stringify(bodyData) : null
 	});
+	let jsonData = {};
 
 	const { status, statusText } = response;
 	if (status === 401 && statusText === 'Unauthorized') {
-		throw {
-			errors: [errorMessage]
-		};
+		// throw {
+		// 	errors: [errorMessage]
+		// };
+		jsonData.errors = [errorMessage];
+		return jsonData;
 	}
 
-	const jsonData = await response.json();
+	jsonData = await response.json();
 
 	return jsonData;
 }
@@ -81,10 +80,10 @@ function checkUserLoggedIn() {
 			const now = new Date();
 
 			if (now.getTime() > expiry * 1000) {
-				// console.log('Token expired.');
+				// Token expired
 				return false;
 			} else {
-				// console.log('Valid token');
+				// Valid token
 				return true;
 			}
 		}
@@ -121,5 +120,6 @@ export {
 	checkActionPage,
 	executeRESTMethod,
 	showContent,
-	usePageUserLoggedInCheck
+	checkForErrors,
+	checkForAuthError
 };

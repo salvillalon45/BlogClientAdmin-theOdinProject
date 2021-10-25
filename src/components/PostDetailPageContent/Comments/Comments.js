@@ -1,19 +1,14 @@
 import React from 'react';
-import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 
 function Comments(props) {
-	const { comments } = props;
-	const [currentComments, setCurrentComments] = React.useState(comments);
+	const { comments, postid } = props;
 
-	function handleCommmentsChange(formInput) {
-		setCurrentComments([...currentComments, formInput]);
-	}
-
-	const commentItems = currentComments.map((comment) => {
-		const { timestamp, content, user_ref } = comment;
+	const commentItems = comments.map((comment) => {
+		const { timestamp, content, user_ref, _id: commentid } = comment;
 		const { username } = user_ref;
-		const commentData = { timestamp, username, content };
+		const commentData = { timestamp, username, content, commentid, postid };
+
 		return (
 			<>
 				<hr />
@@ -27,8 +22,6 @@ function Comments(props) {
 			<h1 className='font-lora font-bold text-2xl'>The Comments</h1>
 
 			{commentItems}
-
-			{/* <CommentForm handleCommmentsChange={handleCommmentsChange} /> */}
 		</div>
 	);
 }
