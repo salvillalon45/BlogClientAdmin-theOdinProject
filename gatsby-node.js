@@ -42,6 +42,7 @@ exports.createPages = async ({ actions }) => {
 		});
 	});
 
+	// Here we are giving pages data at build time
 	postsData.posts.forEach((item) => {
 		actions.createPage({
 			path: `/dashboard/blog/${item._id}/action`,
@@ -65,7 +66,7 @@ exports.createPages = async ({ actions }) => {
 // I had the same mistake that this person was going through. Thanks for the article: https://betterprogramming.pub/getting-gatsby-wrong-836c198eb6ea
 // exports.sourceNodes = async ({
 // 	actions: { createNode },
-// 	createContentDigest
+// 	createContentDigest`
 // }) => {
 // 	// Get data from Blog API at build time
 // 	const response = await fetch(`${process.env.GATSBY_BLOG_API}/posts`);

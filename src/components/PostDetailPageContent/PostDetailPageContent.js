@@ -18,7 +18,6 @@ function PostDetailPageContent({ postid }) {
 	const [isPostDeleted, setIsPostDeleted] = React.useState(false);
 
 	React.useEffect(async () => {
-		console.group('Inside useEffect in PostDetailPageContent for post');
 		const postData = await executeRESTMethod(
 			'get',
 			null,
@@ -29,7 +28,6 @@ function PostDetailPageContent({ postid }) {
 
 		setPost(postData.post);
 		setIsPostLoaded(true);
-		console.groupEnd();
 	}, []);
 
 	React.useEffect(async () => {

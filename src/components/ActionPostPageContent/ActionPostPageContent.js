@@ -1,6 +1,4 @@
 import React from 'react';
-import { useLocation } from '@reach/router';
-
 import ActionForm from './ActionForm';
 import Errors from '../Reusable/Errors';
 import Button from '../Reusable/Button';
@@ -58,7 +56,6 @@ function ActionPostPageContent({ postid, post, actionToTake }) {
 
 		setErrors(null);
 		setIsLoaded(true);
-		console.groupEnd();
 	}
 
 	return (

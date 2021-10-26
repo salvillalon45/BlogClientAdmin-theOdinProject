@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, navigate } from 'gatsby';
+import { navigate } from 'gatsby';
 import { checkUserLoggedIn } from '../../../lib/utils';
 
 function Header() {

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'gatsby';
 
 function AuthForm(props) {
-	const { username, password } = props;
+	const { username } = props;
 
 	return (
 		<div className='authFormWrapperContainer m-auto w-full max-w-xs my-9'>
@@ -37,7 +36,6 @@ function AuthForm(props) {
 						name='password'
 						type='password'
 						placeholder='******************'
-						// value={password}
 						onChange={(event) => props.handleChange(event)}
 					/>
 				</div>

@@ -22,19 +22,37 @@ function IndexPageContent() {
 
 	async function handleSubmit(usernameTest) {
 		const authData = { username: usernameTest, password };
-		const loginData = await executeRESTMethod('post', authData, 'log-in');
 
-		checkForErrors(loginData, setErrors);
+		if (
+			process.env.GATSBY_USER === usernameTest &&
+			process.env.GATSBY_PASSWORD === password
+		) {
+			const loginData = await executeRESTMethod(
+				'post',
+				authData,
+				'log-in'
+			);
 
-		const { user, token } = loginData;
-		const { username, _id: user_ref } = user;
+			checkForErrors(loginData, setErrors);
 
-		localStorage.setItem('user', JSON.stringify({ username, user_ref }));
-		localStorage.setItem('token', token);
+			const { user, token } = loginData;
+			const { username, _id: user_ref } = user;
 
-		setUsername('');
-		setPassword('');
-		navigate('/dashboard');
+			localStorage.setItem(
+				'user',
+				JSON.stringify({ username, user_ref })
+			);
+			localStorage.setItem('token', token);
+
+			setUsername('');
+			setPassword('');
+			navigate('/dashboard');
+		} else {
+			checkForErrors(
+				{ errors: ['Incorrect Username and Password'] },
+				setErrors
+			);
+		}
 	}
 
 	function handleChange(event) {

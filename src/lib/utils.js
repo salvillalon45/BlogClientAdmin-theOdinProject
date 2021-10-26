@@ -4,6 +4,14 @@ import Errors from '../components/Reusable/Errors';
 import IsLoaded from '../components/Reusable/IsLoaded';
 import NoContentAvailable from '../components/Reusable/NoContentAvailable';
 
+function capitalize(s) {
+	if (typeof s !== 'string') {
+		return '';
+	}
+
+	return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 function checkForAuthError(isLoaded, setErrors, setIsLoaded) {
 	const userCheck = checkUserLoggedIn();
 
@@ -49,13 +57,11 @@ async function executeRESTMethod(
 		},
 		body: bodyData ? JSON.stringify(bodyData) : null
 	});
+
 	let jsonData = {};
 
 	const { status, statusText } = response;
 	if (status === 401 && statusText === 'Unauthorized') {
-		// throw {
-		// 	errors: [errorMessage]
-		// };
 		jsonData.errors = [errorMessage];
 		return jsonData;
 	}
@@ -120,6 +126,7 @@ export {
 	checkActionPage,
 	executeRESTMethod,
 	showContent,
+	capitalize,
 	checkForErrors,
 	checkForAuthError
 };

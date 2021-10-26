@@ -3,7 +3,12 @@ import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import ActionPostPageContent from '../components/ActionPostPageContent';
 import AuthCheck from '../components/Reusable/AuthCheck';
-import { getPostId, checkActionPage, checkUserLoggedIn } from '../lib/utils';
+import {
+	getPostId,
+	checkActionPage,
+	checkUserLoggedIn,
+	capitalize
+} from '../lib/utils';
 
 function ActionPostTemplate(props) {
 	const [errors, setErrors] = React.useState(null);
@@ -22,7 +27,7 @@ function ActionPostTemplate(props) {
 	return (
 		<Layout id={id}>
 			<section>
-				<Seo title={`Action Post`} />
+				<Seo title={`${capitalize(actionToTake)} Post`} />
 
 				{errors ? (
 					<AuthCheck errors={errors} />

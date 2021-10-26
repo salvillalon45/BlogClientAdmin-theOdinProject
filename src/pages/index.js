@@ -9,7 +9,7 @@ function IndexPage() {
 	return (
 		<Layout id={id}>
 			<section>
-				<Seo title='Home' />
+				<Seo title='Welcome Back' />
 
 				<IndexPageContent />
 			</section>
