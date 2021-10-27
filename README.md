@@ -1,6 +1,16 @@
 <h1 align="center">
-[The Odin Project: Node] - Project: Blog Client Admin View
+[The Odin Project: Node] - Project: Blog Client Admin View. 
 </h1>
+
+<p align="center">
+Made By
+</p>
+
+<p align="center">
+  <a href="https://blog-sal-admin.netlify.app/">
+    <img alt="Your Story" src="./src/images/sal.png" width="500" />
+  </a>
+</p>
 
 ## Intro
 
