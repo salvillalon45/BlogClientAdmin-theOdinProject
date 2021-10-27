@@ -31,6 +31,10 @@ exports.onCreateWebpackConfig = ({ actions, stage, plugins }) => {
 // Creating Pages from Data Programmatically
 // More here: https://www.gatsbyjs.com/docs/programmatically-create-pages-from-data/
 exports.createPages = async ({ actions }) => {
+	console.log(
+		'What is process.env.GATSBY_BLOG_API' + process.env.GATSBY_BLOG_API
+	);
+	console.log(process.env);
 	const response = await fetch(`${process.env.GATSBY_BLOG_API}/posts`);
 	const postsData = await response.json();
 
