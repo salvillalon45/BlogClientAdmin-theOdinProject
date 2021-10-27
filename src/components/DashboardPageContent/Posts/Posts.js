@@ -1,6 +1,5 @@
 import React from 'react';
 import PostItem from './PostItem';
-// import { graphql, useStaticQuery } from 'gatsby';
 import { formatDate } from '../../../lib/utils';
 
 function Posts({ posts }) {

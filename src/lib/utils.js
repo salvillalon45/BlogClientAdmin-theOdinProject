@@ -52,7 +52,7 @@ async function executeRESTMethod(
 	const response = await fetch(`${process.env.GATSBY_BLOG_API}/${path}`, {
 		method,
 		headers: {
-			Authorization: authorization,
+			Authorization: authorization ?? '',
 			'Content-Type': 'application/json'
 		},
 		body: bodyData ? JSON.stringify(bodyData) : null
@@ -100,10 +100,6 @@ function checkUserLoggedIn() {
 	}
 }
 
-function getPostById(posts, postid) {
-	return posts.find((post) => post._id === postid);
-}
-
 function getPostId(props) {
 	return props?.pageContext?.slug ?? '';
 }
@@ -120,7 +116,6 @@ function formatDate(timestamp) {
 
 export {
 	checkUserLoggedIn,
-	getPostById,
 	formatDate,
 	getPostId,
 	checkActionPage,

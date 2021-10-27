@@ -18,12 +18,13 @@ function PostDetailPageContent({ postid }) {
 	const [isPostDeleted, setIsPostDeleted] = React.useState(false);
 
 	React.useEffect(async () => {
+		console.log('Going to retrieve post again');
 		const postData = await executeRESTMethod(
 			'get',
 			null,
 			`posts/${postid}`
 		);
-
+		console.log(postData);
 		checkForErrors(postData, setErrors);
 
 		setPost(postData.post);
