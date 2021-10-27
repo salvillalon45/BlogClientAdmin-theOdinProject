@@ -2,8 +2,8 @@ module.exports = {
 	siteMetadata: {
 		title: 'Sal Blog',
 		titleTemplate: '%s · Sal Blog',
-		description: 'A blog made by Salvador Villalon',
-		url: 'https://www.doe.com', // No trailing slash allowed!
+		description: 'Admin view of the sal blog made by Salvador Villalon',
+		url: 'https://blog-sal-admin.netlify.app/', // No trailing slash allowed!
 		image: '/images/sal.png', // Path to your image you placed in the 'static' folder
 		twitterUsername: '@salvillalon45'
 	},
@@ -13,7 +13,7 @@ module.exports = {
 		{
 			resolve: 'gatsby-plugin-manifest',
 			options: {
-				icon: 'src/images/icon.png'
+				icon: 'src/images/favicon.ico'
 			}
 		},
 		'gatsby-plugin-sharp',
