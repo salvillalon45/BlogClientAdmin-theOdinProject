@@ -36,6 +36,8 @@ exports.createPages = async ({ actions }) => {
 	);
 	// console.log(process.env);
 	const response = await fetch(`${process.env.GATSBY_BLOG_API}/posts`);
+	console.log('What is reponse');
+	console.log(response);
 	const postsData = await response.json();
 
 	postsData.posts.forEach((item) => {

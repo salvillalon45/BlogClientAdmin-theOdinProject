@@ -22,7 +22,8 @@ function IndexPageContent() {
 
 	async function handleSubmit(usernameTest) {
 		const authData = { username: usernameTest, password };
-
+		console.log('What is authData');
+		console.log({ authData });
 		if (
 			process.env.GATSBY_USER === usernameTest &&
 			process.env.GATSBY_PASSWORD === password
@@ -57,7 +58,7 @@ function IndexPageContent() {
 
 	function handleChange(event) {
 		const { name, value } = event.target;
-
+		console.log({ value });
 		if (name === 'username') {
 			setUsername(value);
 		} else {

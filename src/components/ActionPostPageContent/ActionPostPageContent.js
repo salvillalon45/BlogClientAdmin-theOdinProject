@@ -8,8 +8,8 @@ import IsLoaded from '../Reusable/IsLoaded';
 function ActionPostPageContent({ postid, post, actionToTake }) {
 	const [errors, setErrors] = React.useState(null);
 	const [isLoaded, setIsLoaded] = React.useState(false);
-	const [title, setTitle] = React.useState('');
-	const [content, setContent] = React.useState('');
+	const [title, setTitle] = React.useState(post.title ?? '');
+	const [content, setContent] = React.useState(post.content ?? '');
 
 	function handleChange(event) {
 		const { name, value } = event.target;
