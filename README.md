@@ -224,6 +224,9 @@ Made By
     -   Typescript
     -   SWR Hooks
     -   Gatsby Nested Pages
+-  Watch Out 
+    - Also set you env variables in the Netlify platform. I got an error saying that they did not exist, but by putting them in the online tool now it works!
+    - Also check closely on what DB you are connecting to. Either local or remote. I got a lot of errors since when I deployed the API it kept giving me timeouts and that is because it was connecting to a local db!
 
 ## Technologies:
 
