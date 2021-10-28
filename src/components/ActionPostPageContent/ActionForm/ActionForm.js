@@ -3,9 +3,7 @@ import Button from '../../Reusable/Button';
 
 function ActionForm(props) {
 	const { title, content } = props.actionFormData;
-	console.log('What is title and content');
-	console.log(title);
-	console.log(content);
+
 	return (
 		<div className='actionFormWrapperContainer m-auto w-full max-w-xl my-9'>
 			<form className='actionFormContainer bg-white shadow-xl rounded px-8 pt-6 pb-8 mb-4'>
@@ -22,7 +20,7 @@ function ActionForm(props) {
 						name='title'
 						type='text'
 						placeholder='Title of Post'
-						value={title}
+						// value={title}
 						onChange={(event) => props.handleChange(event)}
 					/>
 				</div>
@@ -40,7 +38,7 @@ function ActionForm(props) {
 						name='content'
 						type='text'
 						placeholder='Content of Post'
-						value={content}
+						// value={content}
 						onChange={(event) => props.handleChange(event)}
 					/>
 				</div>
