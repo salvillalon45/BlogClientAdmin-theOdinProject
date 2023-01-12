@@ -6,7 +6,7 @@
     -   [User View](https://github.com/salvillalon45/theOdinProject-BlogClientUser)
     -   [Blog API](https://github.com/salvillalon45/theOdinProject-BlogApi)
 -   This is the Admin View which is part of the Blog API Project. The overall project is to create an api and two clients: User View and Admin View that call the same api. The purpose is to teach us how to create apis that can serve many frontends. We had liberty of choosing how we want to do the frontend so I decided to use Gatsby and Tailwind!
--   You can find more on the project here: [The Odin Project - Blog API](https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs/lessons/blog-api)
+- Project Task: [The Odin Project - Blog API](https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs/lessons/blog-api)
 
 ### 📗 Fonts used
 
