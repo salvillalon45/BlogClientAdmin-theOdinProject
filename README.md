@@ -1,19 +1,7 @@
-<h1 align="center">
-[The Odin Project: Node] - Project: Blog Client Admin View. 
-</h1>
-
-<p align="center">
-Made By
-</p>
-
-<p align="center">
-  <a href="https://blog-sal-admin.netlify.app/">
-    <img alt="Your Story" src="./src/images/sal.png" width="500" />
-  </a>
-</p>
+# Blog Client (Admin View)
+[The Odin Project: Node] - Project: Blog Client Admin View
 
 ## Intro
-
 -   The repos associated with project:
     -   [User View](https://github.com/salvillalon45/theOdinProject-BlogClientUser)
     -   [Blog API](https://github.com/salvillalon45/theOdinProject-BlogApi)
@@ -34,10 +22,10 @@ Made By
 
 |  Color            |  Hex                                                                 |
 | ----------------- | -------------------------------------------------------------------- |
-|  Blue             |  ![#020024](https://via.placeholder.com/10/020024?text=+) `#020024`  |
-|  White            |  ![#fffefd](https://via.placeholder.com/10/fffefd?text=+) `#fffefd`  |
-| Black             |  ![#111113](https://via.placeholder.com/10/111113?text=+) `#111113`  |
-| Grey              | ![#eae9ee](https://via.placeholder.com/10/eae9ee?text=+) `#eae9ee`   |
+|  Blue             |  ![#020024](https://placehold.co/15x15/020024/020024.png) `#020024`  |
+|  White            |  ![#fffefd](https://placehold.co/15x15/fffefd/fffefd.png) `#fffefd`  |
+|  Black            |  ![#111113](https://placehold.co/15x15/111113/111113.png) `#111113`  |
+|  Grey             |  ![#eae9ee](https://placehold.co/15x15/eae9ee/eae9ee.png) `#eae9ee`  |
 
 ## Overall
 
